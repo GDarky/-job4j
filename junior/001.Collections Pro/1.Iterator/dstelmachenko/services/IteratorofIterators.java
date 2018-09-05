@@ -20,7 +20,7 @@ public class IteratorofIterators implements Iterator {
     public Object next() {
         getNextIter();
         if (currIter == null)
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("Hasn't next element");
 
         return currIter.next();
     }
