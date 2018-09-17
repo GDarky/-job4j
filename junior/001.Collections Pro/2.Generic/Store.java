@@ -1,4 +1,6 @@
-package dstelmachenko.services;
+package dstelmachenko.collections;
+
+import dstelmachenko.collections.Base;
 
 public interface Store<T extends Base> {
     void add(T model);

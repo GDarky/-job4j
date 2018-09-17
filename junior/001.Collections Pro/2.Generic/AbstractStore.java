@@ -1,14 +1,14 @@
-package dstelmachenko.services;
+package dstelmachenko.collections;
 
 import java.util.Iterator;
 
-public abstract class AbstractStore /*implements Store<Base>*/{
+public abstract class AbstractStore<R extends Base> /*implements Store<Base>*/ {
 
-    protected SimpleArray<Base> array = new SimpleArray(10);
+    protected SimpleArray<R> array = new SimpleArray(10);
 
-    protected Base findbyId(String id) {
-        Base result = null;
-        for (Base arr: array) {
+    protected dstelmachenko.collections.Base findbyId(String id) {
+        dstelmachenko.collections.Base result = null;
+        for (R arr: array) {
             if (arr.getId().equals(id)) {
                 result = arr;
                 break;
@@ -17,12 +17,12 @@ public abstract class AbstractStore /*implements Store<Base>*/{
         return result;
     }
 
-    protected boolean delete(String id) {
+    public boolean delete(String id) {
         boolean result = false;
         Base base = findbyId(id);
 
-        if (base!=null) {
-            for (Iterator<Base> it = array.iterator(); it.hasNext();) {
+        if (base != null) {
+            for (Iterator<R> it = array.iterator(); it.hasNext();) {
                 if (it.next().equals(base)) {
                     it.remove();
                     result = true;
@@ -34,14 +34,14 @@ public abstract class AbstractStore /*implements Store<Base>*/{
         return result;
     }
 
-    protected boolean baseReplace(String id, Base model) {
+    protected boolean baseReplace(String id, R model) {
         boolean result = false;
         Base base = findbyId(id);
 
         //тут не сообразил, как без счетчика сделать
-        int i=0;
-        if (base!=null) {
-            for (Base rl: array) {
+        int i = 0;
+        if (base != null) {
+            for (R rl: array) {
                 if (rl.getId().equals(id)) {
                     array.set(i, model);
                     result = true;
@@ -54,7 +54,7 @@ public abstract class AbstractStore /*implements Store<Base>*/{
     }
 
     public void printAll() {
-        for (Base arr : array) {
+        for (R arr : array) {
             System.out.println(arr.getId());
         }
         System.out.println("-------");

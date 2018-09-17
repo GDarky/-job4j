@@ -1,4 +1,4 @@
-package dstelmachenko.services;
+package dstelmachenko.collections;
 
 public class Base {
     private final String id;
