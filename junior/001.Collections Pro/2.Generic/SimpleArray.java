@@ -1,4 +1,4 @@
-package dstelmachenko.services;
+package dstelmachenko.collections;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.ParameterizedType;
@@ -6,34 +6,32 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 
-public class SimpleArray<T> implements Iterable<T>{
+public class SimpleArray<T> implements Iterable<T> {
 
     private Object[] array;
-    private int index=0;
+    private int index = 0;
 
     public SimpleArray(int size) {
         this.array = new Object[size];
     }
 
     public void add(T model) {
-        if (index>=array.length)
+        if (index >= array.length) {
             throw new NoSuchElementException("Array out of bounds");
-
-        array[index++]=model;
-        //array = (T[]) Array.newInstance((Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments(), num);
+        }
+        array[index++] = model;
     }
 
-    public void set(int index, T model)
-    {
+    public void set(int index, T model) {
         checkIndex(index);
-        array[index++]=model;
+        array[index++] = model;
     }
 
     public void delete(int index) {
         checkIndex(index);
         this.index--;
-        for (int i=index; i<this.index; i++) {
-            array[i]=array[i+1];
+        for (int i = index; i < this.index; i++) {
+            array[i] = array[i + 1];
         }
     }
 
@@ -42,9 +40,10 @@ public class SimpleArray<T> implements Iterable<T>{
         return (T) array[index];
     }
 
-    private void checkIndex (int index) {
-        if (this.index<index)
+    private void checkIndex(int index) {
+        if (this.index < index) {
             throw new NoSuchElementException("Array out of bounds");
+        }
     }
 
     public Iterator<T> iterator() {
@@ -54,7 +53,7 @@ public class SimpleArray<T> implements Iterable<T>{
     class ArrayIterator implements Iterator<T> {
         int current = 0;
         public boolean hasNext() {
-            return current<index;
+            return current < index;
         }
 
         public T next() {
@@ -72,6 +71,4 @@ public class SimpleArray<T> implements Iterable<T>{
             set(current, model);
         }
     }
-
-
 }
