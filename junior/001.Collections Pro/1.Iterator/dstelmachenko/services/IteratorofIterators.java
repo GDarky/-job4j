@@ -19,22 +19,20 @@ public class IteratorofIterators implements Iterator {
 
     public Object next() {
         getNextIter();
-        if (currIter == null)
+        if (currIter == null) {
             throw new NoSuchElementException("Hasn't next element");
-
+        }
         return currIter.next();
     }
 
-    private void getNextIter()
-    {
-        if (currIter != null && currIter.hasNext())
+    private void getNextIter() {
+        if (currIter != null && currIter.hasNext()) {
             return;
-
+        }
         currIter = null;
         while (iter.hasNext()) {
             Iterator<Integer> currentIter = iter.next();
-            if (currentIter.hasNext())
-            {
+            if (currentIter.hasNext()) {
                 currIter = currentIter;
                 break;
             }

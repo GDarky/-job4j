@@ -16,32 +16,31 @@ public class MatrixIterator implements Iterator {
     private int wholeLength = 0;
 
     public MatrixIterator(final int[][] values) {
-        this.values=values;
-        for (int[] arrayPart : values){
+        this.values = values;
+        for (int[] arrayPart : values) {
             wholeLength += arrayPart.length;
         }
     }
 
     public boolean hasNext() {
-        return wholeLength>index;
+        return wholeLength > index;
     }
 
     public Object next() {
-        int indexI=values.length;
-        int indexJ=0;
-        int result=-1;
-
-        for (int i=0, sum=0; i<values.length; i++) {
-            if (sum+values[i].length>index) {
+        int indexI = values.length;
+        int indexJ = 0;
+        int result = -1;
+        for (int i = 0, sum = 0; i < values.length; i++) {
+            if (sum + values[i].length > index) {
                 indexI = i;
-                indexJ = index++-sum;
+                indexJ = index++ - sum;
                 break;
             }
             sum += values[i].length;
         }
-        if (indexI>=values.length)
+        if (indexI >= values.length) {
             throw new NoSuchElementException("Hasn't next element");
-
+        }
         return values[indexI][indexJ];
     }
 
