@@ -2,12 +2,12 @@ package dstelmachenko.collections;
 
 import dstelmachenko.collections.Base;
 
-public interface Store<T extends Base> {
-    void add(T model);
+public interface Store<R extends Base> {
+    void add(R model);
 
-    boolean replace(String id, T model);
+    boolean replace(String id, R model);
 
     boolean delete(String id);
 
-    T findById(String id);
+    R findById(String id);
 }

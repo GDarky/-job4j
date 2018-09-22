@@ -2,25 +2,13 @@ package dstelmachenko.collections;
 
 import java.util.Iterator;
 
-public abstract class AbstractStore<R extends Base> /*implements Store<Base>*/ {
+public class AbstractStore<R extends Base> implements Store<R> {
 
     protected SimpleArray<R> array = new SimpleArray(10);
 
-    protected dstelmachenko.collections.Base findbyId(String id) {
-        dstelmachenko.collections.Base result = null;
-        for (R arr: array) {
-            if (arr.getId().equals(id)) {
-                result = arr;
-                break;
-            }
-        }
-        return result;
-    }
-
     public boolean delete(String id) {
         boolean result = false;
-        Base base = findbyId(id);
-
+        Base base = findById(id);
         if (base != null) {
             for (Iterator<R> it = array.iterator(); it.hasNext();) {
                 if (it.next().equals(base)) {
@@ -30,15 +18,23 @@ public abstract class AbstractStore<R extends Base> /*implements Store<Base>*/ {
                 }
             }
         }
-
         return result;
     }
 
-    protected boolean baseReplace(String id, R model) {
-        boolean result = false;
-        Base base = findbyId(id);
+    public R findById(String id) {
+        R result = null;
+        for (R arr: array) {
+            if (arr.getId().equals(id)) {
+                result = arr;
+                break;
+            }
+        }
+        return result;
+    }
 
-        //тут не сообразил, как без счетчика сделать
+    public boolean replace(String id, R model) {
+        boolean result = false;
+        Base base = findById(id);
         int i = 0;
         if (base != null) {
             for (R rl: array) {
@@ -51,6 +47,10 @@ public abstract class AbstractStore<R extends Base> /*implements Store<Base>*/ {
             }
         }
         return result;
+    }
+
+    public void add(R model) {
+        array.add(model);
     }
 
     public void printAll() {
