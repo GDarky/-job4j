@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 public class AbstractStore<R extends Base> implements Store<R> {
 
-    protected SimpleArray<R> array = new SimpleArray(10);
+    private SimpleArray<R> array = new SimpleArray(10);
 
     public boolean delete(String id) {
         boolean result = false;
