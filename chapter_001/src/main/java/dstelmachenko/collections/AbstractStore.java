@@ -6,6 +6,7 @@ public class AbstractStore<R extends Base> implements Store<R> {
 
     private SimpleArray<R> array = new SimpleArray(10);
 
+    @Override
     public boolean delete(String id) {
         boolean result = false;
         Base base = findById(id);
@@ -21,6 +22,7 @@ public class AbstractStore<R extends Base> implements Store<R> {
         return result;
     }
 
+    @Override
     public R findById(String id) {
         R result = null;
         for (R arr: array) {
@@ -32,6 +34,7 @@ public class AbstractStore<R extends Base> implements Store<R> {
         return result;
     }
 
+    @Override
     public boolean replace(String id, R model) {
         boolean result = false;
         Base base = findById(id);
@@ -49,6 +52,7 @@ public class AbstractStore<R extends Base> implements Store<R> {
         return result;
     }
 
+    @Override
     public void add(R model) {
         array.add(model);
     }
