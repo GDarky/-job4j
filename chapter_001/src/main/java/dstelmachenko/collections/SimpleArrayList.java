@@ -18,9 +18,10 @@ public class SimpleArrayList<E> {
  * Реализовать метод удаления первого элемент в списке.
  */
     public E delete() {
+        Node<E> deleted = this.first;
         this.first = this.first.next;
         size--;
-        return (this.first != null ? this.first.date : null);
+        return (deleted != null ? deleted.date : null);
     }
 
 /**
