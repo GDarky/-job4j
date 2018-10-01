@@ -8,7 +8,6 @@ public class DinamicLinkedList<T> implements Iterable {
     transient int index = 0;
     transient Node<T> first;
     transient Node<T> last;
-    private int nextIndex;
     private transient int modCount = 0;
 
     public void add(T model) {
@@ -63,7 +62,6 @@ public class DinamicLinkedList<T> implements Iterable {
     public void set(int index, T model) {
         checkIndex(index);
         Node<T> x = node(index);
-        T oldVal = x.item;
         x.item = model;
     }
 
@@ -142,7 +140,7 @@ public class DinamicLinkedList<T> implements Iterable {
 
         final void checkForComodification() {
             if (expectedModCount != modCount) {
-                throw new ConcurrentModificationException();
+                throw new ConcurrentModificationException("");
             }
         }
     }
