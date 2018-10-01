@@ -4,8 +4,8 @@ import java.util.*;
 
 public class DinamicArrayList<T> implements Iterable {
     private Object[] container;
-    private int index = 0;
-    private transient int modCount = 0;
+    private int index;
+    private transient int modCount;
 
     public DinamicArrayList(int size) {
         this.container = new Object[size];
@@ -14,6 +14,7 @@ public class DinamicArrayList<T> implements Iterable {
     public void add(T model) {
         checkCapacity();
         container[index++] = model;
+        modCount++;
     }
 
     public void set(int index, T model) {
@@ -23,12 +24,12 @@ public class DinamicArrayList<T> implements Iterable {
 
     public void delete(int index) {
         checkIndex(index);
-        modCount++;
         this.index--;
             for (int i = index; i < this.index; i++) {
                 container[i] = container[i + 1];
             }
         container[this.index] = null;
+        modCount++;
     }
 
     public T get(int index) {
@@ -54,7 +55,6 @@ public class DinamicArrayList<T> implements Iterable {
     }
 
     private void checkCapacity() {
-        modCount++;
         if (index >= container.length) {
             int oldCapacity = container.length;
             int newCapacity = oldCapacity * 2;
@@ -70,9 +70,9 @@ public class DinamicArrayList<T> implements Iterable {
             return new DinamicArrayList.ArrayIterator();
     }
 
-    class ArrayIterator implements Iterator<T> {
-        int current = 0;
-        int expectedModCount = DinamicArrayList.this.modCount;
+    private class ArrayIterator implements Iterator<T> {
+        private int current;
+        private int expectedModCount = DinamicArrayList.this.modCount;
 
         @Override
         public boolean hasNext() {
@@ -98,9 +98,9 @@ public class DinamicArrayList<T> implements Iterable {
             set(current, model);
         }
 
-        final void checkForComodification() {
+        private final void checkForComodification() {
             if (expectedModCount != DinamicArrayList.this.modCount) {
-                throw new ConcurrentModificationException();
+                throw new ConcurrentModificationException("");
             }
         }
     }

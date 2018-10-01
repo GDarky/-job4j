@@ -3,6 +3,11 @@ package dstelmachenko.collections;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
@@ -26,7 +31,7 @@ public class DinamicArrayListTest {
     }
 
     @Test
-    public void whenSetsevenToSecondElementThenIsSevenInSecobdElement() {
+    public void whenSetSevenToSecondElementThenIsSevenInSecondElement() {
         arrayList.set(1, 7);
         assertThat(arrayList.get(0), is(1));
         assertThat(arrayList.get(1), is(7));
@@ -38,4 +43,50 @@ public class DinamicArrayListTest {
         assertThat(arrayList.get(0), is(1));
     }
 
+    @Test
+    public void whenCreatedanEmptyCollectionThenCollectionhasntNextElement() {
+        DinamicArrayList<Integer> emptyArrayList = new DinamicArrayList<>(10);
+        assertThat(emptyArrayList.iterator().hasNext(), is(false));
+    }
+
+    @Test
+    public void whenCreatedanEmptyCollectionandGotNextElementsThenCollectionThrowException() {
+        DinamicArrayList<Integer> emptyArrayList = new DinamicArrayList<>(10);
+        try {
+            emptyArrayList.iterator().next();
+            fail("Array out of bounds");
+        } catch (NoSuchElementException ex) {
+            assertThat(ex.getMessage(), containsString("Array out of bounds"));
+        }
+
+    }
+
+    @Test
+    public void whenDelteElementThenIteratorThrowsExeption() {
+        Iterator<Integer> iter = arrayList.iterator();
+        arrayList.delete(1);
+        try {
+            iter.next();
+        } catch (ConcurrentModificationException ex) {
+            assertThat(ex.getMessage(), containsString(""));
+        }
+    }
+
+    @Test
+    public void whenAddElementThenIteratorThrowsExeption() {
+        Iterator<Integer> iter = arrayList.iterator();
+        arrayList.add(4);
+        try {
+            iter.next();
+        } catch (ConcurrentModificationException ex) {
+            assertThat(ex.getMessage(), containsString(""));
+        }
+    }
+
+    @Test
+    public void whenDeleteSecondElementThenSecondElementWillBeThree() {
+        arrayList.delete(1);
+        assertThat(arrayList.get(1), is(3));
+
+    }
 }
