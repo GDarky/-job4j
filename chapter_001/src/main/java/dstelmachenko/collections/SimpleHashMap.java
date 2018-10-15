@@ -3,12 +3,13 @@ package dstelmachenko.collections;
 import java.util.*;
 
 public class SimpleHashMap<K, V> implements Iterable {
+    final double loadFACTOR = 0.3;
     private int index;
     private int modCount;
     private Node<K, V>[] container;
 
     public SimpleHashMap() {
-        container = new Node[100];
+        container = new Node[10];
     }
 
     public boolean insert(K key, V value) {
@@ -40,13 +41,21 @@ public class SimpleHashMap<K, V> implements Iterable {
     }
 
     private void checkCapacity() {
-        if (index >= container.length) {
+        if (index >= container.length * loadFACTOR) {
             int oldCapacity = container.length;
             int newCapacity = oldCapacity * 2;
             if  (newCapacity > Integer.MAX_VALUE - 8) {
                 throw new OutOfMemoryError();
             }
+            Node<K, V>[] tmpContainer = Arrays.copyOf(container, oldCapacity);
+            Arrays.fill(container, null);
+            index = 0;
             container = Arrays.copyOf(container, newCapacity);
+            for (int i = 0; i < tmpContainer.length; i++) {
+                if (tmpContainer[i] != null) {
+                    this.insert(tmpContainer[i].key, tmpContainer[i].value);
+                }
+            }
         }
     }
 

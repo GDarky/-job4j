@@ -26,16 +26,6 @@ public class SimpleHashMapTest {
     }
 
     @Test
-    public void whenAddUserRole43ThenUserRole43WasAdded() {
-        if (map.insert("User Role 43", 6543)) {
-            Integer number = map.get("User Role 43");
-            assertThat(number, is(6543));
-        } else {
-            assertThat(map.get("User Role 43"), is(nullValue()));
-        }
-    }
-
-    @Test
     public void whenDeleteUser2ThenUser2NotExists() {
         map.delete("User 2");
         assertThat(map.get("User2"), is(nullValue()));
@@ -43,8 +33,8 @@ public class SimpleHashMapTest {
 
     @Test
     public void whenGotKeyUserRole120KeyThenReturned65553Value() {
-        Integer number = map.get("User Role 120");
-        assertThat(number, is(65553));
+        Integer number = map.get("User 1");
+        assertThat(number, is(1));
     }
 
     @Test
@@ -84,4 +74,11 @@ public class SimpleHashMapTest {
         assertThat(iter.next(), is("User 1"));
     }
 
+    @Test
+    public void whenInserted800ElementsAndArrayGrewOpThenAskUserRole120AndReturnedUser1() {
+        for (int i = 0; i < 80; i++) {
+            map.insert("User Example " + i * 17, i * 31);
+        }
+        assertThat(map.get("User 1"), is(1));
+    }
 }
