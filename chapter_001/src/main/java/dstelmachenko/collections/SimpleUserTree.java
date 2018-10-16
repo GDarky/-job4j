@@ -39,6 +39,21 @@ public class SimpleUserTree<E extends Comparable<E>> implements SimpleTree<E> {
         return rsl;
     }
 
+    public boolean isBinary() {
+        Iterator iterator = this.iterator();
+        boolean result = true;
+        while (iterator.hasNext()) {
+            E value = (E) iterator.next();
+            TreeNode<E> node = this.findBy(value).get();
+            List<TreeNode<E>> leaves = node.leaves();
+            if (leaves.size() > 2) {
+                result = false;
+                break;
+            }
+        }
+       return result;
+    }
+
     @Override
     public Iterator iterator() {
         return new SimpleUserTree.TreeIterator();
