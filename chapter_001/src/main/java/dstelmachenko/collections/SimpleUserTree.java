@@ -4,7 +4,7 @@ import java.util.*;
 
 public class SimpleUserTree<E extends Comparable<E>> implements SimpleTree<E> {
     private TreeNode<E> root;
-    private transient int modCount = 0;
+    private int modCount = 0;
 
     public SimpleUserTree(E root) {
         this.root = new TreeNode<>(root);

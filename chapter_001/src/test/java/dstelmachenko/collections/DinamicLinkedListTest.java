@@ -75,6 +75,7 @@ public class DinamicLinkedListTest {
         linkedList.deleteFirst();
         try {
             iter.next();
+            fail("");
         } catch (ConcurrentModificationException ex) {
             assertThat(ex.getMessage(), containsString(""));
         }
@@ -86,6 +87,7 @@ public class DinamicLinkedListTest {
         linkedList.add(4);
         try {
             iter.next();
+            fail("");
         } catch (ConcurrentModificationException ex) {
             assertThat(ex.getMessage(), containsString(""));
         }

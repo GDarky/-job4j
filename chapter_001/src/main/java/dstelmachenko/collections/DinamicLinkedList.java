@@ -123,7 +123,6 @@ public class DinamicLinkedList<T> implements Iterable {
         @Override
         public T next() {
             checkForComodification();
-            checkForComodification();
             if (!hasNext()) {
                 throw new NoSuchElementException("Array out of bounds");
             }

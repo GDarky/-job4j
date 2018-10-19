@@ -49,7 +49,9 @@ public class SimpleArrayListTest {
 
     @Test
     public void whenDeleteFirstElementThenReturnOne() {
-        assertThat(list.delete(), is(3));
+        list.delete();
+        list.delete();
+        assertThat(list.delete(), is(1));
     }
 
 }

@@ -49,38 +49,24 @@ public class DinamicArrayListTest {
         assertThat(emptyArrayList.iterator().hasNext(), is(false));
     }
 
-    @Test
+    @Test (expected = NoSuchElementException.class)
     public void whenCreatedanEmptyCollectionandGotNextElementsThenCollectionThrowException() {
         DinamicArrayList<Integer> emptyArrayList = new DinamicArrayList<>(10);
-        try {
-            emptyArrayList.iterator().next();
-            fail("Array out of bounds");
-        } catch (NoSuchElementException ex) {
-            assertThat(ex.getMessage(), containsString("Array out of bounds"));
-        }
-
+        emptyArrayList.iterator().next();
     }
 
-    @Test
+    @Test (expected = ConcurrentModificationException.class)
     public void whenDelteElementThenIteratorThrowsExeption() {
         Iterator<Integer> iter = arrayList.iterator();
         arrayList.delete(1);
-        try {
             iter.next();
-        } catch (ConcurrentModificationException ex) {
-            assertThat(ex.getMessage(), containsString(""));
-        }
     }
 
-    @Test
+    @Test (expected = ConcurrentModificationException.class)
     public void whenAddElementThenIteratorThrowsExeption() {
         Iterator<Integer> iter = arrayList.iterator();
         arrayList.add(4);
-        try {
-            iter.next();
-        } catch (ConcurrentModificationException ex) {
-            assertThat(ex.getMessage(), containsString(""));
-        }
+        iter.next();
     }
 
     @Test
