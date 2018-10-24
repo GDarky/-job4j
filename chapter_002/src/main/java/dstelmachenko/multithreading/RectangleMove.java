@@ -12,14 +12,14 @@ public class RectangleMove implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (!Thread.currentThread().isInterrupted()) {
             delta = checkCollision();
             this.rect.setX(this.rect.getX() + delta);
             try {
-                Thread.sleep(20);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-                return;
+                Thread.currentThread().interrupt();
             }
         }
     }
