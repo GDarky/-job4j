@@ -4,9 +4,8 @@ package dstelmachenko.multithreading;
 import dstelmachenko.collections.DinamicArrayList;
 import net.jcip.annotations.GuardedBy;
 import net.jcip.annotations.ThreadSafe;
-import java.util.Iterator;
 
-import static java.util.Collections.copy;
+import java.util.Iterator;
 
 @ThreadSafe
 public class MultithreadDinamicArrayList<E> {
@@ -41,7 +40,7 @@ public class MultithreadDinamicArrayList<E> {
         return copy(this.list).iterator();
     }
 
-    private DinamicArrayList<E> copy(DinamicArrayList<E> origList) {
+    private synchronized DinamicArrayList<E> copy(DinamicArrayList<E> origList) {
         DinamicArrayList<E> copyList = new DinamicArrayList<>(origList.getIndex());
         Iterator<E> iterator = origList.iterator();
         while (iterator.hasNext()) {
